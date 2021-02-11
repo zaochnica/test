@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+#version: '2'
+#services:
+#  db:
+#    image: postgres
+#  web:
+#    build: .
+#    command: python manage.py runserver 0.0.0.0:8000
+#    volumes:
+#      - .:/code
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      - db
+
+
+#version: '3'
+#
+#services:
+#  sqlite3:
+#    image: bboard/sqlite3:latest
+#    stdin_open: true
+#    tty: true
+#    volumes:
+#      - ./db/:/root/db/

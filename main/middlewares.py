@@ -1,10 +1,8 @@
 from .models import SubRubric
 
+
 def bboard_context_processor(request):
-    context = {}
-    context['rubrics'] = SubRubric.objects.all()
-    context['keyword'] = ''
-    context['all'] = ''
+    context = {'rubrics': SubRubric.objects.all(), 'keyword': '', 'all': ''}
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:

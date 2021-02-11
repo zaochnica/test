@@ -69,8 +69,7 @@ class BBLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'main/logout.html'
 
 
-class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin,
-                                              UpdateView):
+class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = AdvUser
     template_name = 'main/change_user_info.html'
     form_class = ChangeUserInfoForm
@@ -87,8 +86,7 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin,
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-class BBPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin,
-                                                PasswordChangeView):
+class BBPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
     template_name = 'main/password_change.html'
     success_url = reverse_lazy('main:profile')
     success_message = 'Пароль пользователя изменен'
@@ -177,8 +175,7 @@ def by_rubric(request, pk):
     else:
         page_num = 1
     page = paginator.get_page(page_num)
-    context = {'rubric': rubric, 'page': page, 'bbs': page.object_list,
-               'form': form}
+    context = {'rubric': rubric, 'page': page, 'bbs': page.object_list, 'form': form}
     return render(request, 'main/by_rubric.html', context)
 
 

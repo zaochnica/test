@@ -4,8 +4,14 @@ from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
 from captcha.fields import CaptchaField
 
-from .models import AdvUser, SuperRubric, SubRubric, Bb, AdditionalImage, \
-    Comment
+from .models import (
+    AdvUser,
+    SuperRubric,
+    SubRubric,
+    Bb,
+    AdditionalImage,
+    Comment,
+)
 from .apps import user_registered
 
 
@@ -40,7 +46,9 @@ class RegisterUserForm(forms.ModelForm):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
         if password1 and password2 and password1 != password2:
-            errors = {'password2': ValidationError('Введенные пароли не совпадают', code='password_mismatch')}
+            errors = {'password2': ValidationError(
+                'Введенные пароли не совпадают',
+                code='password_mismatch')}
             raise ValidationError(errors)
 
     def save(self, commit=True):
@@ -55,7 +63,14 @@ class RegisterUserForm(forms.ModelForm):
 
     class Meta:
         model = AdvUser
-        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name', 'send_messages')
+        fields = (
+            'username',
+            'email',
+            'password1',
+            'password2',
+            'first_name',
+            'last_name',
+            'send_messages')
 
 
 class SubRubricForm(forms.ModelForm):
@@ -91,8 +106,9 @@ class UserCommentForm(forms.ModelForm):
 
 
 class GuestCommentForm(forms.ModelForm):
-    captcha = CaptchaField(label='Введите текст с картинки',
-                           error_messages={'invalid': 'Неправильный текст'})
+    captcha = CaptchaField(
+        label='Введите текст с картинки',
+        error_messages={'invalid': 'Неправильный текст'})
 
     class Meta:
         model = Comment
